@@ -63,7 +63,15 @@
       console.log("Human: "+humanScore+" vs Computer: "+computerScore);
     }
 
-    playRound(getHumanChoice(), getComputerChoice(3));
+    function playGame(){
+      for(let i = 1; i <= 5; i++){
+        console.log("Game number "+i);
+        playRound(getHumanChoice(), getComputerChoice(3));
+      }
+    }
+
+    playGame();
+    
     /*
     console.log("Random choice is " + getComputerChoice(3));
     console.log("Humam choice is " + getHumanChoice());
