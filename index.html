@@ -9,6 +9,25 @@
   
   <script>
     console.log("Hello World");
+
+    function getComputerChoice(max) {      
+      let randomNumber = Math.floor(Math.random() * max);
+      let randomChoice = "";
+
+      console.log("Random number is  " + randomNumber);
+
+      if( randomNumber == 0 ){
+        randomChoice = "Rock";
+      }else if( randomNumber == 1 ){
+        randomChoice = "Paper";
+      }else if( randomNumber == 2 ){
+        randomChoice = "Scissors";
+      }
+
+      return randomChoice;
+    }
+
+    console.log("Random choice is " + getComputerChoice(3));
   </script>
 </body>
 </html>
