@@ -6,11 +6,35 @@
   <title>Document</title>
 </head>
 <body>
-  
+  <button class="rockButton">ROCK</button>
+  <button class="paperButton">PAPER</button>
+  <button class="scissorsButton">SCISSORS</button>
+
+  <div class="matchResult"></div>
+  <div class="gameScore"></div>
+
   <script>
     console.log("Hello World");
     let humanScore = 0;
     let computerScore = 0;
+
+    const rockBtn = document.querySelector(".rockButton");
+    rockBtn.addEventListener( "click", () => {
+      playRound("ROCK", getComputerChoice(3));
+    });
+
+    const paperBtn = document.querySelector(".paperButton");
+    paperBtn.addEventListener("click", () => {
+      playRound("PAPER", getComputerChoice(3));
+    });
+
+    const scissorsBtn = document.querySelector(".scissorsButton");
+    scissorsBtn.addEventListener("click", () => {
+      playRound("SCISSORS", getComputerChoice(3));
+    });
+    
+    const matchResultDiv = document.querySelector(".matchResult");
+    const gameScoreDiv = document.querySelector(".gameScore");
 
     function getComputerChoice(max) {      
       let randomNumber = Math.floor(Math.random() * max);
@@ -33,46 +57,58 @@
       let humanChoice = prompt("What's your choice? (Rock; Paper; Scissors)");
       humanChoice = humanChoice.toUpperCase();
 
-      console.log("Human Choice is  " + humanChoice);
-
-      /*
-      if(humanChoiceNumber == 0){
-        humanChoice = "Rock";
-      }else if(humanChoiceNumber == 1){
-        humanChoice = "Paper";
-      }else if(humanChoiceNumber == 2){
-        humanChoice = "Scissors";
-      }
-      */
+      console.log("Human Choice is  " + humanChoice);      
 
       return humanChoice;
     }
 
     function playRound(humanChoice, computerChoice){
       if(humanChoice == computerChoice){
+        matchResultDiv.innerText = "DRAW";
         console.log("DRAW");
       }else if((humanChoice == "ROCK" && computerChoice == "SCISSORS") || 
                (humanChoice == "PAPER" && computerChoice == "ROCK") || 
                (humanChoice == "SCISSORS" && computerChoice == "PAPER")){
 
+              matchResultDiv.innerText = "Human WINS!!! "+humanChoice+" beats "+computerChoice;
               console.log("Human WINS!!! "+humanChoice+" beats "+computerChoice);
               humanScore = humanScore + 1;
+
+              checkGameScore();
       }else {
+        matchResultDiv.innerText = "Human LOSES!!! "+computerChoice+" beats "+humanChoice;
         console.log("Human LOSES!!! "+computerChoice+" beats "+humanChoice);
         computerScore = computerScore + 1;
+        
+        checkGameScore();
       }
 
+      gameScoreDiv.innerText = "Human: "+humanScore+" vs Computer: "+computerScore;
       console.log("Human: "+humanScore+" vs Computer: "+computerScore);
     }
 
     function playGame(){
+      /*
       for(let i = 1; i <= 5; i++){
         console.log("Game number "+i);
         playRound(getHumanChoice(), getComputerChoice(3));
       }
+      */      
+
+      //playRound(getHumanChoice(), getComputerChoice(3));
     }
 
-    playGame();
+    function checkGameScore(){
+      if(humanScore == 5 || computerScore == 5){
+        rockBtn.remove();
+        paperBtn.remove();
+        scissorsBtn.remove();
+
+        matchResultDiv.innerText = "GAME OVER!!!";
+      }
+    }
+
+    //playGame();
 
   </script>
 </body>
